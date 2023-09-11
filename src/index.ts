@@ -13,6 +13,7 @@ async function run() {
 		if (!tagName) throw new Error('Input "tag-name" is required');
 		if (!branch) throw new Error('Input "branch" is required');
 
+		actions.info('prevTagName is ${prevTagName}');
 		const octokit = github.getOctokit(token);
 
 		const { owner, repo } = github.context.repo;
