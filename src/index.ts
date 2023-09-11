@@ -7,6 +7,7 @@ async function run() {
 
 		const token = actions.getInput('token', { required: true });
 		const tagName = actions.getInput('tag-name', { required: true });
+		const prevTagName = actions.getInput('prev-tag-name', { required: false });
 		const branch = actions.getInput('branch', { required: false }) || 'main';
 		if (!token) throw new Error('Input "token" is required');
 		if (!tagName) throw new Error('Input "tag-name" is required');
@@ -23,6 +24,7 @@ async function run() {
 				repo,
 				tag_name: tagName,
 				target_commitish: branch,
+				previous_tag_name: prevTagName,
 			},
 		);
 

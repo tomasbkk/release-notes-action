@@ -11,6 +11,9 @@ inputs:
   tag-name: # The tag name to use
     description: 'The tag name to use'
     required: true
+  prev-tag-name: # The tag name to use to manually specify range
+    description: 'The previous tag name to use'
+    required: false
   branch:
     description: 'The branch to use'
     required: false
