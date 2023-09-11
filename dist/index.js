@@ -8832,7 +8832,7 @@ async function run() {
         }
       }
     });
-    actions.debug(`Tag names retrieved: ${tagNames}`);
+    actions.info("Tag names retrieved: ${tagNames}");
     tagNames = tagNames.trim();
     const tagNamesArray = tagNames.split("\n");
     if (tagNamesArray.length < 2) {
