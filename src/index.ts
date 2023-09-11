@@ -1,5 +1,7 @@
 import * as actions from '@actions/core';
 import * as github from '@actions/github';
+import * as exec from '@actions/exec';
+
 
 async function run() {
 	try {
