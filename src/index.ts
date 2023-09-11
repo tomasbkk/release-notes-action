@@ -10,7 +10,7 @@ async function run() {
 		//const prevTagName = actions.getInput('prev-tag-name', { required: false });
 		const branch = actions.getInput('branch', { required: false }) || 'main';
 		if (!token) throw new Error('Input "token" is required');
-		if (!tagName) throw new Error('Input "tag-name" is required');
+		//if (!tagName) throw new Error('Input "tag-name" is required');
 		if (!branch) throw new Error('Input "branch" is required');
 
 
