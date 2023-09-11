@@ -8824,7 +8824,7 @@ async function run() {
       throw new Error('Input "branch" is required');
     let tagNames = "";
     await exec.exec("git", ["for-each-ref", "--count=2", "--sort=-creatordate", "--format", "%(refname:short)", "refs/tags"], {
-      silent: true,
+      silent: false,
       // Suppress output to the console
       listeners: {
         stdout: (data) => {
@@ -8832,6 +8832,7 @@ async function run() {
         }
       }
     });
+    actions.debug(`Tag names retrieved: ${tagNames}`);
     tagNames = tagNames.trim();
     const tagNamesArray = tagNames.split("\n");
     if (tagNamesArray.length < 2) {
