@@ -7787,8 +7787,6 @@ async function run() {
     const branch = actions.getInput("branch", { required: false }) || "main";
     if (!token)
       throw new Error('Input "token" is required');
-    if (!tagName)
-      throw new Error('Input "tag-name" is required');
     if (!branch)
       throw new Error('Input "branch" is required');
     const tagNames = execSync('git for-each-ref --count=2 --sort=-creatordate --format "%(refname:short)" refs/tags').toString().trim().split("\n");
