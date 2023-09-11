@@ -7784,8 +7784,6 @@ async function run() {
   try {
     actions.info("Fetching release notes...");
     const token = actions.getInput("token", { required: true });
-    const tagName = actions.getInput("tag-name", { required: true });
-    const prevTagName = actions.getInput("prev-tag-name", { required: false });
     const branch = actions.getInput("branch", { required: false }) || "main";
     if (!token)
       throw new Error('Input "token" is required');
@@ -7793,7 +7791,12 @@ async function run() {
       throw new Error('Input "tag-name" is required');
     if (!branch)
       throw new Error('Input "branch" is required');
-    actions.info("prevTagName is ${prevTagName}");
+    const tagNames = execSync('git for-each-ref --count=2 --sort=-creatordate --format "%(refname:short)" refs/tags').toString().trim().split("\n");
+    if (tagNames.length < 2) {
+      throw new Error("Not enough tags found to generate release notes");
+    }
+    const tagName = tagNames[0];
+    const prevTagName = tagNames[1];
     const octokit = github.getOctokit(token);
     const { owner, repo } = github.context.repo;
     const releaseNotes = await octokit.request(
