@@ -7789,8 +7789,19 @@ async function run() {
       throw new Error('Input "token" is required');
     if (!branch)
       throw new Error('Input "branch" is required');
-    const tagNames = execSync('git for-each-ref --count=2 --sort=-creatordate --format "%(refname:short)" refs/tags').toString().trim().split("\n");
-    if (tagNames.length < 2) {
+    let tagNames = "";
+    await exec.exec("git", ["for-each-ref", "--count=2", "--sort=-creatordate", "--format", "%(refname:short)", "refs/tags"], {
+      silent: true,
+      // Suppress output to the console
+      listeners: {
+        stdout: (data) => {
+          tagNames += data.toString();
+        }
+      }
+    });
+    tagNames = tagNames.trim();
+    const tagNamesArray = tagNames.split("\n");
+    if (tagNamesArray.length < 2) {
       throw new Error("Not enough tags found to generate release notes");
     }
     const tagName = tagNames[0];
